@@ -44,6 +44,10 @@
             this.fromDatePicker = new System.Windows.Forms.DateTimePicker();
             this.fromDateLabel = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.totalCostLabel = new System.Windows.Forms.Label();
+            this.totalCostTxtBox = new System.Windows.Forms.TextBox();
+            this.AvgCostLabel = new System.Windows.Forms.Label();
+            this.AvgCostTxtBox = new System.Windows.Forms.TextBox();
             this.filterGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -211,11 +215,49 @@
             this.dataGridView1.Size = new System.Drawing.Size(531, 254);
             this.dataGridView1.TabIndex = 1;
             // 
+            // totalCostLabel
+            // 
+            this.totalCostLabel.AutoSize = true;
+            this.totalCostLabel.Location = new System.Drawing.Point(12, 430);
+            this.totalCostLabel.Name = "totalCostLabel";
+            this.totalCostLabel.Size = new System.Drawing.Size(55, 13);
+            this.totalCostLabel.TabIndex = 2;
+            this.totalCostLabel.Text = "Total Cost";
+            // 
+            // totalCostTxtBox
+            // 
+            this.totalCostTxtBox.Enabled = false;
+            this.totalCostTxtBox.Location = new System.Drawing.Point(77, 427);
+            this.totalCostTxtBox.Name = "totalCostTxtBox";
+            this.totalCostTxtBox.Size = new System.Drawing.Size(100, 20);
+            this.totalCostTxtBox.TabIndex = 3;
+            // 
+            // AvgCostLabel
+            // 
+            this.AvgCostLabel.AutoSize = true;
+            this.AvgCostLabel.Location = new System.Drawing.Point(277, 430);
+            this.AvgCostLabel.Name = "AvgCostLabel";
+            this.AvgCostLabel.Size = new System.Drawing.Size(71, 13);
+            this.AvgCostLabel.TabIndex = 4;
+            this.AvgCostLabel.Text = "Avg cost/day";
+            // 
+            // AvgCostTxtBox
+            // 
+            this.AvgCostTxtBox.Enabled = false;
+            this.AvgCostTxtBox.Location = new System.Drawing.Point(355, 427);
+            this.AvgCostTxtBox.Name = "AvgCostTxtBox";
+            this.AvgCostTxtBox.Size = new System.Drawing.Size(100, 20);
+            this.AvgCostTxtBox.TabIndex = 5;
+            // 
             // ViewExpensesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(555, 426);
+            this.ClientSize = new System.Drawing.Size(555, 469);
+            this.Controls.Add(this.AvgCostTxtBox);
+            this.Controls.Add(this.AvgCostLabel);
+            this.Controls.Add(this.totalCostTxtBox);
+            this.Controls.Add(this.totalCostLabel);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.filterGroup);
             this.Name = "ViewExpensesForm";
@@ -224,6 +266,7 @@
             this.filterGroup.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -245,5 +288,9 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button closeBtn;
         private System.Windows.Forms.Button searchBtn;
+        private System.Windows.Forms.Label totalCostLabel;
+        private System.Windows.Forms.TextBox totalCostTxtBox;
+        private System.Windows.Forms.Label AvgCostLabel;
+        private System.Windows.Forms.TextBox AvgCostTxtBox;
     }
 }

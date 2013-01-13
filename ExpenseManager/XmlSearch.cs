@@ -5,6 +5,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.XPath;
 using System.Windows.Forms;
+using System.Collections;
 
 namespace XmlOperations
 {
@@ -19,7 +20,7 @@ namespace XmlOperations
         //  nodeElement:
         //      The xml file/nodes in which the required pattern needs to be searched
         //  nodeName:
-        //      The nodeName which needs to be found in the 'nodeElement'
+        //      The string representation of the node name which needs to be found in the 'nodeElement'
         //  attributeNames:
         //      The list of attribute names which should also be present in the matching node
         //  attributeValues:
@@ -33,11 +34,11 @@ namespace XmlOperations
         {
             try
             {
-                if (!areAttributeRefsValid(attributeNames, attributeValues))
+                if (!arePairRefsValid(attributeNames, attributeValues))
                 {
                     throw new NullReferenceException("Either 'Attribute names' or 'Attribute values' or both are null.");
                 }
-                if (!areAttributesLenValid(attributeNames, attributeValues))
+                if (!arePairLensValid(attributeNames, attributeValues))
                 {
                     throw new ArgumentException("The number of attribute names & values do not match when searching for node");
                 }
@@ -78,18 +79,55 @@ namespace XmlOperations
             return null;
         }
 
-        private bool areAttributeRefsValid(String[] attributeOne, String[] attributeTwo)
+        public bool isNodeMatching(XmlNode node, Hashtable nameValuePair)
         {
-            if (attributeOne == null || attributeTwo == null)
+            IEnumerator userParameter = node.ChildNodes.GetEnumerator();
+            while(userParameter.MoveNext())
+            {
+                if( ((XmlNode)userParameter.Current) .Name.Equals("cost") && nameValuePair.ContainsKey("FromAmount"))
+                {
+                    double storedAmount = double.Parse(((XmlNode)userParameter.Current).InnerText);
+                    double fromAmountFilter = (double)nameValuePair["FromAmount"];
+                    double toAmountFilter = (double)nameValuePair["ToAmount"];
+                    if (storedAmount < fromAmountFilter || storedAmount > toAmountFilter)
+                        return false;
+                }
+                else
+                {
+                    if (!isInnerNodeMatched(((XmlNode)userParameter.Current), nameValuePair))
+                        return false;
+                }
+            }
+            return true;
+        }
+
+        private bool isInnerNodeMatched(XmlNode innerParameter, Hashtable nameValuePair)
+        {
+            if (nameValuePair.ContainsKey(innerParameter.Name))
+            {
+                if (innerParameter.InnerText.Equals(nameValuePair[innerParameter.Name].ToString()))
+                {
+                    return true;
+                }
+                else
+                    return false;
+            }
+            else
+                return true;
+        }
+
+        private bool arePairRefsValid(String[] parameterOne, String[] parameterTwo)
+        {
+            if (parameterOne == null || parameterTwo == null)
             {
                 return false;
             }
             return true;
         }
 
-        private bool areAttributesLenValid(String[] attributeOne, String[] attributeTwo)
+        private bool arePairLensValid(String[] parameterOne, String[] parameterTwo)
         {
-            if (attributeOne.Length!=attributeTwo.Length)
+            if (parameterOne.Length != parameterTwo.Length)
             {
                 return false;
             }

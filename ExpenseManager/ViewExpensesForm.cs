@@ -7,11 +7,22 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Collections;
+using System.Xml;
+using System.IO;
+using System.Xml.XPath;
 
 namespace ExpenseManager
 {
     public partial class ViewExpensesForm : Form
     {
+        private DateTime fromDate;
+        private DateTime toDate;
+        private String item = String.Empty;
+        private String category = String.Empty;
+        private double fromAmount;
+        private double toAmount;
+        private Hashtable userInputPair=null;
+
         public ViewExpensesForm()
         {
             InitializeComponent();
@@ -80,9 +91,13 @@ namespace ExpenseManager
             if(toDateChkBox.Checked)
             {
                 DateTime toDate = new DateTime(toDatePicker.Value.Year, toDatePicker.Value.Month, toDatePicker.Value.Day);
-                if (toDate.CompareTo(fromDate) > 0)
+                if (toDate.CompareTo(fromDate) < 0)
                 {
-                    errors.Add("The To Date cannot be greater than from date.");
+                    errors.Add("The To Date cannot be lesser than from date.");
+                }
+                else if (toDate.CompareTo(today) > 0)
+                {
+                    errors.Add("The 'ToDate' cannot be greater than today's date, " + today.ToShortDateString());
                 }
             }
             return errors;
@@ -117,7 +132,7 @@ namespace ExpenseManager
                 }
                 else if ( Double.Parse(toAmountTxtBox.Text) < Double.Parse(fromAmountTxtBox.Text) ) 
                 {
-                    errors.Add("The 'To Amount' cannot be greater than 'From Amount'.");
+                    errors.Add("The 'To Amount' cannot be lesser than 'From Amount'.");
                 }
             }
             return errors;
@@ -125,16 +140,115 @@ namespace ExpenseManager
 
         private void searchBtn_Click(object sender, EventArgs e)
         {
+            XmlOperations.XmlSearch xmlNavigator = new XmlOperations.XmlSearch();
             if (!isFormValid())
             {
                 return;
             }
+            storeInputValues();
+            XmlDocument xmlDoc = new XmlDocument();
+            if (File.Exists(SysTray.getXmlFile()))
+            {
+                xmlDoc.Load(SysTray.getXmlFile());
+            }
+            else
+            {
+                MessageBox.Show("File '" + SysTray.getXmlFile() + "' could not be found here.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+            XmlElement docParent = xmlDoc.DocumentElement;
+            double totalCost = 0;
+            String[] calenderAttributeNames = new String[] { "day", "month", "year" };
+            initGridView();
+            for (DateTime searchDate = fromDate; searchDate.CompareTo(toDate) <= 0; searchDate=searchDate.AddDays(1))
+            {
+                userInputPair["date"] = searchDate;
+                XmlNode calenderNode = xmlNavigator.findFirstNode(ref docParent, "calender", calenderAttributeNames, new String[] { searchDate.Day.ToString(), searchDate.Month.ToString(), searchDate.Year.ToString() });
+                if (calenderNode == null)
+                {
+                    //MessageBox.Show("Could not find any record with the given filter.", "Expense Mgmt", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    continue;
+                }
+                IEnumerator expenseNode = calenderNode.ChildNodes.GetEnumerator();
+                while(expenseNode.MoveNext())
+                {
+                    if (xmlNavigator.isNodeMatching((XmlNode)expenseNode.Current,userInputPair))
+                    {
+                        //Code to insert row into datatable
+                        XPathNavigator navigateExpenseToDisplay = ((XmlNode)expenseNode.Current).CreateNavigator();
+                        navigateExpenseToDisplay.MoveToChild(XPathNodeType.Element);
+                        string item = navigateExpenseToDisplay.Value;
+                        navigateExpenseToDisplay.MoveToNext();
+                        string category = navigateExpenseToDisplay.Value;
+                        navigateExpenseToDisplay.MoveToNext();
+                        string cost = navigateExpenseToDisplay.Value;
+                        totalCost += double.Parse(cost);
+                        navigateExpenseToDisplay.MoveToNext();
+                        string comment = navigateExpenseToDisplay.Value;
+                        string date = searchDate.ToShortDateString().ToString();
+                        dataGridView1.Rows.Add(new String[] {date, item, cost, category, comment});
+                    }
+                }
+            }
+            totalCostTxtBox.Text = totalCost+"";
+            AvgCostTxtBox.Text = Math.Round(totalCost / (((toDate - fromDate).TotalDays)+1),2) + "";
         }
 
         private void closeBtn_Click(object sender, EventArgs e)
         {
             Dispose(true);
             Close();
+        }
+
+        private void storeInputValues()
+        {
+            userInputPair = new Hashtable();
+            fromDate = fromDatePicker.Value;
+            userInputPair.Add("date", fromDate);
+            if (toDateChkBox.Checked)
+            {
+                toDate = toDatePicker.Value;
+            }
+            else
+            {
+                toDate = fromDate;
+            }
+            if (!itemTxtBox.Text.Equals(String.Empty))
+            {
+                item = itemTxtBox.Text;
+                userInputPair.Add("item", item);
+            }
+            if (categoryCombo.SelectedItem!=null)
+            {
+                category = categoryCombo.SelectedItem.ToString();
+                userInputPair.Add("category", category);
+            }
+            if (!fromAmountTxtBox.Text.Equals(""))
+            {
+            	fromAmount = Double.Parse(fromAmountTxtBox.Text);
+                userInputPair.Add("FromAmount", fromAmount);
+                if (toAmountChkBox.Checked)
+                {
+                    toAmount = Double.Parse(toAmountTxtBox.Text);
+                    userInputPair.Add("ToAmount", toAmount);
+                }
+                else
+                {
+                    toAmount = fromAmount;
+                    userInputPair.Add("ToAmount", fromAmount);
+                }
+            }
+        }
+
+        protected void initGridView()
+        {
+            dataGridView1.Columns.Clear();
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Add("Date","Date");
+            dataGridView1.Columns.Add("Item", "Item");
+            dataGridView1.Columns.Add("Cost", "Cost");
+            dataGridView1.Columns.Add("Category", "Category");
+            dataGridView1.Columns.Add("Comment", "Comment");
         }
     }
 }
