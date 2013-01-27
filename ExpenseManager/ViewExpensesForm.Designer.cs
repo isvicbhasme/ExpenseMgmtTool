@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.filterGroup = new System.Windows.Forms.GroupBox();
+            this.categoryList = new System.Windows.Forms.ListBox();
             this.closeBtn = new System.Windows.Forms.Button();
             this.searchBtn = new System.Windows.Forms.Button();
             this.toAmountChkBox = new System.Windows.Forms.CheckBox();
@@ -36,7 +37,6 @@
             this.toAmountTxtBox = new System.Windows.Forms.TextBox();
             this.fromAmountTxtBox = new System.Windows.Forms.TextBox();
             this.fromAmountLabel = new System.Windows.Forms.Label();
-            this.categoryCombo = new System.Windows.Forms.ComboBox();
             this.categoryLabel = new System.Windows.Forms.Label();
             this.itemTxtBox = new System.Windows.Forms.TextBox();
             this.itemLabel = new System.Windows.Forms.Label();
@@ -54,6 +54,7 @@
             // 
             // filterGroup
             // 
+            this.filterGroup.Controls.Add(this.categoryList);
             this.filterGroup.Controls.Add(this.closeBtn);
             this.filterGroup.Controls.Add(this.searchBtn);
             this.filterGroup.Controls.Add(this.toAmountChkBox);
@@ -61,7 +62,6 @@
             this.filterGroup.Controls.Add(this.toAmountTxtBox);
             this.filterGroup.Controls.Add(this.fromAmountTxtBox);
             this.filterGroup.Controls.Add(this.fromAmountLabel);
-            this.filterGroup.Controls.Add(this.categoryCombo);
             this.filterGroup.Controls.Add(this.categoryLabel);
             this.filterGroup.Controls.Add(this.itemTxtBox);
             this.filterGroup.Controls.Add(this.itemLabel);
@@ -70,14 +70,24 @@
             this.filterGroup.Controls.Add(this.fromDateLabel);
             this.filterGroup.Location = new System.Drawing.Point(12, 12);
             this.filterGroup.Name = "filterGroup";
-            this.filterGroup.Size = new System.Drawing.Size(531, 142);
+            this.filterGroup.Size = new System.Drawing.Size(561, 189);
             this.filterGroup.TabIndex = 0;
             this.filterGroup.TabStop = false;
             this.filterGroup.Text = "Filter";
             // 
+            // categoryList
+            // 
+            this.categoryList.FormattingEnabled = true;
+            this.categoryList.Location = new System.Drawing.Point(240, 29);
+            this.categoryList.Name = "categoryList";
+            this.categoryList.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.categoryList.Size = new System.Drawing.Size(119, 95);
+            this.categoryList.Sorted = true;
+            this.categoryList.TabIndex = 14;
+            // 
             // closeBtn
             // 
-            this.closeBtn.Location = new System.Drawing.Point(428, 104);
+            this.closeBtn.Location = new System.Drawing.Point(393, 151);
             this.closeBtn.Name = "closeBtn";
             this.closeBtn.Size = new System.Drawing.Size(75, 23);
             this.closeBtn.TabIndex = 13;
@@ -87,7 +97,7 @@
             // 
             // searchBtn
             // 
-            this.searchBtn.Location = new System.Drawing.Point(428, 66);
+            this.searchBtn.Location = new System.Drawing.Point(90, 151);
             this.searchBtn.Name = "searchBtn";
             this.searchBtn.Size = new System.Drawing.Size(75, 23);
             this.searchBtn.TabIndex = 12;
@@ -98,7 +108,7 @@
             // toAmountChkBox
             // 
             this.toAmountChkBox.AutoSize = true;
-            this.toAmountChkBox.Location = new System.Drawing.Point(204, 104);
+            this.toAmountChkBox.Location = new System.Drawing.Point(374, 63);
             this.toAmountChkBox.Name = "toAmountChkBox";
             this.toAmountChkBox.Size = new System.Drawing.Size(78, 17);
             this.toAmountChkBox.TabIndex = 10;
@@ -120,42 +130,31 @@
             // toAmountTxtBox
             // 
             this.toAmountTxtBox.Enabled = false;
-            this.toAmountTxtBox.Location = new System.Drawing.Point(297, 102);
+            this.toAmountTxtBox.Location = new System.Drawing.Point(473, 63);
             this.toAmountTxtBox.Name = "toAmountTxtBox";
-            this.toAmountTxtBox.Size = new System.Drawing.Size(100, 20);
+            this.toAmountTxtBox.Size = new System.Drawing.Size(76, 20);
             this.toAmountTxtBox.TabIndex = 11;
             // 
             // fromAmountTxtBox
             // 
-            this.fromAmountTxtBox.Location = new System.Drawing.Point(297, 68);
+            this.fromAmountTxtBox.Location = new System.Drawing.Point(473, 29);
             this.fromAmountTxtBox.Name = "fromAmountTxtBox";
-            this.fromAmountTxtBox.Size = new System.Drawing.Size(100, 20);
+            this.fromAmountTxtBox.Size = new System.Drawing.Size(76, 20);
             this.fromAmountTxtBox.TabIndex = 9;
             // 
             // fromAmountLabel
             // 
             this.fromAmountLabel.AutoSize = true;
-            this.fromAmountLabel.Location = new System.Drawing.Point(222, 71);
+            this.fromAmountLabel.Location = new System.Drawing.Point(390, 30);
             this.fromAmountLabel.Name = "fromAmountLabel";
             this.fromAmountLabel.Size = new System.Drawing.Size(43, 13);
             this.fromAmountLabel.TabIndex = 8;
             this.fromAmountLabel.Text = "Amount";
             // 
-            // categoryCombo
-            // 
-            this.categoryCombo.AllowDrop = true;
-            this.categoryCombo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.categoryCombo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.categoryCombo.Location = new System.Drawing.Point(297, 29);
-            this.categoryCombo.Name = "categoryCombo";
-            this.categoryCombo.Size = new System.Drawing.Size(121, 21);
-            this.categoryCombo.Sorted = true;
-            this.categoryCombo.TabIndex = 7;
-            // 
             // categoryLabel
             // 
             this.categoryLabel.AutoSize = true;
-            this.categoryLabel.Location = new System.Drawing.Point(224, 32);
+            this.categoryLabel.Location = new System.Drawing.Point(185, 63);
             this.categoryLabel.Name = "categoryLabel";
             this.categoryLabel.Size = new System.Drawing.Size(49, 13);
             this.categoryLabel.TabIndex = 6;
@@ -163,9 +162,9 @@
             // 
             // itemTxtBox
             // 
-            this.itemTxtBox.Location = new System.Drawing.Point(80, 102);
+            this.itemTxtBox.Location = new System.Drawing.Point(83, 102);
             this.itemTxtBox.Name = "itemTxtBox";
-            this.itemTxtBox.Size = new System.Drawing.Size(100, 20);
+            this.itemTxtBox.Size = new System.Drawing.Size(91, 20);
             this.itemTxtBox.TabIndex = 5;
             // 
             // itemLabel
@@ -181,23 +180,23 @@
             // 
             this.toDatePicker.Enabled = false;
             this.toDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.toDatePicker.Location = new System.Drawing.Point(81, 64);
+            this.toDatePicker.Location = new System.Drawing.Point(84, 64);
             this.toDatePicker.Name = "toDatePicker";
-            this.toDatePicker.Size = new System.Drawing.Size(99, 20);
+            this.toDatePicker.Size = new System.Drawing.Size(90, 20);
             this.toDatePicker.TabIndex = 3;
             // 
             // fromDatePicker
             // 
             this.fromDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.fromDatePicker.Location = new System.Drawing.Point(81, 26);
+            this.fromDatePicker.Location = new System.Drawing.Point(84, 26);
             this.fromDatePicker.Name = "fromDatePicker";
-            this.fromDatePicker.Size = new System.Drawing.Size(99, 20);
+            this.fromDatePicker.Size = new System.Drawing.Size(90, 20);
             this.fromDatePicker.TabIndex = 1;
             // 
             // fromDateLabel
             // 
             this.fromDateLabel.AutoSize = true;
-            this.fromDateLabel.Location = new System.Drawing.Point(29, 28);
+            this.fromDateLabel.Location = new System.Drawing.Point(25, 29);
             this.fromDateLabel.Name = "fromDateLabel";
             this.fromDateLabel.Size = new System.Drawing.Size(30, 13);
             this.fromDateLabel.TabIndex = 0;
@@ -209,16 +208,16 @@
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToOrderColumns = true;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 160);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 207);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(531, 254);
+            this.dataGridView1.Size = new System.Drawing.Size(561, 254);
             this.dataGridView1.TabIndex = 1;
             // 
             // totalCostLabel
             // 
             this.totalCostLabel.AutoSize = true;
-            this.totalCostLabel.Location = new System.Drawing.Point(12, 430);
+            this.totalCostLabel.Location = new System.Drawing.Point(12, 477);
             this.totalCostLabel.Name = "totalCostLabel";
             this.totalCostLabel.Size = new System.Drawing.Size(55, 13);
             this.totalCostLabel.TabIndex = 2;
@@ -226,16 +225,16 @@
             // 
             // totalCostTxtBox
             // 
-            this.totalCostTxtBox.Enabled = false;
-            this.totalCostTxtBox.Location = new System.Drawing.Point(77, 427);
+            this.totalCostTxtBox.Location = new System.Drawing.Point(77, 474);
             this.totalCostTxtBox.Name = "totalCostTxtBox";
+            this.totalCostTxtBox.ReadOnly = true;
             this.totalCostTxtBox.Size = new System.Drawing.Size(100, 20);
             this.totalCostTxtBox.TabIndex = 3;
             // 
             // AvgCostLabel
             // 
             this.AvgCostLabel.AutoSize = true;
-            this.AvgCostLabel.Location = new System.Drawing.Point(277, 430);
+            this.AvgCostLabel.Location = new System.Drawing.Point(383, 477);
             this.AvgCostLabel.Name = "AvgCostLabel";
             this.AvgCostLabel.Size = new System.Drawing.Size(71, 13);
             this.AvgCostLabel.TabIndex = 4;
@@ -243,9 +242,9 @@
             // 
             // AvgCostTxtBox
             // 
-            this.AvgCostTxtBox.Enabled = false;
-            this.AvgCostTxtBox.Location = new System.Drawing.Point(355, 427);
+            this.AvgCostTxtBox.Location = new System.Drawing.Point(461, 474);
             this.AvgCostTxtBox.Name = "AvgCostTxtBox";
+            this.AvgCostTxtBox.ReadOnly = true;
             this.AvgCostTxtBox.Size = new System.Drawing.Size(100, 20);
             this.AvgCostTxtBox.TabIndex = 5;
             // 
@@ -253,7 +252,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(555, 469);
+            this.ClientSize = new System.Drawing.Size(585, 509);
             this.Controls.Add(this.AvgCostTxtBox);
             this.Controls.Add(this.AvgCostLabel);
             this.Controls.Add(this.totalCostTxtBox);
@@ -281,7 +280,6 @@
         private System.Windows.Forms.TextBox toAmountTxtBox;
         private System.Windows.Forms.TextBox fromAmountTxtBox;
         private System.Windows.Forms.Label fromAmountLabel;
-        private System.Windows.Forms.ComboBox categoryCombo;
         private System.Windows.Forms.Label categoryLabel;
         private System.Windows.Forms.CheckBox toAmountChkBox;
         private System.Windows.Forms.CheckBox toDateChkBox;
@@ -292,5 +290,6 @@
         private System.Windows.Forms.TextBox totalCostTxtBox;
         private System.Windows.Forms.Label AvgCostLabel;
         private System.Windows.Forms.TextBox AvgCostTxtBox;
+        private System.Windows.Forms.ListBox categoryList;
     }
 }

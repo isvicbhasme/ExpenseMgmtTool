@@ -18,7 +18,7 @@ namespace ExpenseManager
         private DateTime fromDate;
         private DateTime toDate;
         private String item = String.Empty;
-        private String category = String.Empty;
+        private ArrayList categories;
         private double fromAmount;
         private double toAmount;
         private Hashtable userInputPair=null;
@@ -26,7 +26,8 @@ namespace ExpenseManager
         public ViewExpensesForm()
         {
             InitializeComponent();
-            categoryCombo.Items.AddRange(ExpenseManager.Controls.getCategoryOptions());
+            //categoryCombo.Items.AddRange(ExpenseManager.Controls.getCategoryOptions());
+            categoryList.Items.AddRange(ExpenseManager.Controls.getCategoryOptions());
             this.fromAmountTxtBox.TextChanged += new System.EventHandler(ExpenseManager.Controls.validateAmountLively);
             this.toAmountTxtBox.TextChanged += new System.EventHandler(ExpenseManager.Controls.validateAmountLively);
         }
@@ -63,8 +64,8 @@ namespace ExpenseManager
         {
             ArrayList errors = new ArrayList();
             errors.AddRange(validateDate().ToArray());
-            errors.AddRange(validateCategory().ToArray());
-            errors.AddRange(validateAmount());
+            //errors.AddRange(validateCategory().ToArray());
+            errors.AddRange(validateAmount().ToArray());
             if (errors.Count > 0)
             {
                 String consolidatedError = "";
@@ -103,7 +104,7 @@ namespace ExpenseManager
             return errors;
         }
 
-        private ArrayList validateCategory()
+        /*private ArrayList validateCategory()
         {
             ArrayList errors = new ArrayList();
             if (categoryCombo.SelectedItem == null && categoryCombo.Text!="")
@@ -111,7 +112,7 @@ namespace ExpenseManager
                 errors.Add("Category should be selected from the list");
             }
             return errors;
-        }
+        }*/
 
         private ArrayList validateAmount()
         {
@@ -218,10 +219,12 @@ namespace ExpenseManager
                 item = itemTxtBox.Text;
                 userInputPair.Add("item", item);
             }
-            if (categoryCombo.SelectedItem!=null)
+            if (categoryList.SelectedItems.Count>0)
             {
-                category = categoryCombo.SelectedItem.ToString();
-                userInputPair.Add("category", category);
+                categories = new ArrayList();
+                for (int i = 0; i < categoryList.SelectedItems.Count; i++ )
+                    categories.Add(categoryList.SelectedItems[i].ToString());
+                userInputPair.Add("category", categories);
             }
             if (!fromAmountTxtBox.Text.Equals(""))
             {

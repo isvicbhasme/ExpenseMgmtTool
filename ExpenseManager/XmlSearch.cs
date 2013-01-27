@@ -92,6 +92,23 @@ namespace XmlOperations
                     if (storedAmount < fromAmountFilter || storedAmount > toAmountFilter)
                         return false;
                 }
+                else if (((XmlNode)userParameter.Current).Name.Equals("category") && nameValuePair.ContainsKey("category"))
+                {
+                    ArrayList categoriesFilterItems = (ArrayList)nameValuePair["category"];
+                    bool isCategoryFound = false;
+                    foreach (string categoryFilter in categoriesFilterItems)
+                    {
+                        if (((XmlNode)userParameter.Current).InnerText.CompareTo(categoryFilter) == 0)
+                        {
+                            isCategoryFound = true;
+                            break;
+                        }
+                    }
+                    if (!isCategoryFound)
+                    {
+                        return false;
+                    }
+                }
                 else
                 {
                     if (!isInnerNodeMatched(((XmlNode)userParameter.Current), nameValuePair))
