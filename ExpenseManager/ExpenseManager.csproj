@@ -94,6 +94,9 @@
     <Compile Include="SysTray.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="UpdateExpensesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ViewExpensesForm.cs">
       <SubType>Form</SubType>
     </Compile>

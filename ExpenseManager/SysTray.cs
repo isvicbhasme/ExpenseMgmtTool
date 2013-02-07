@@ -64,7 +64,15 @@ namespace ExpenseManager
 
         private void onUpdateExpense(Object sender, EventArgs e)
         {
-
+            if (isFormOpen("View Expenses Form"))
+            {
+                MessageBox.Show("The window 'View Expenses Form' is open. Please close the window and try again.", "Message");
+            }
+            else if (!isFormOpen("Update Expenses Form"))
+            {
+                UpdateExpensesForm updateExpensesForm = new UpdateExpensesForm();
+                updateExpensesForm.Show();
+            }
         }
 
         private void onExit(Object sender, EventArgs e)

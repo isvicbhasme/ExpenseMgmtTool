@@ -271,25 +271,25 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox filterGroup;
-        private System.Windows.Forms.DateTimePicker toDatePicker;
-        private System.Windows.Forms.DateTimePicker fromDatePicker;
-        private System.Windows.Forms.Label fromDateLabel;
-        private System.Windows.Forms.TextBox itemTxtBox;
-        private System.Windows.Forms.Label itemLabel;
-        private System.Windows.Forms.TextBox toAmountTxtBox;
-        private System.Windows.Forms.TextBox fromAmountTxtBox;
-        private System.Windows.Forms.Label fromAmountLabel;
-        private System.Windows.Forms.Label categoryLabel;
-        private System.Windows.Forms.CheckBox toAmountChkBox;
-        private System.Windows.Forms.CheckBox toDateChkBox;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button closeBtn;
-        private System.Windows.Forms.Button searchBtn;
-        private System.Windows.Forms.Label totalCostLabel;
-        private System.Windows.Forms.TextBox totalCostTxtBox;
-        private System.Windows.Forms.Label AvgCostLabel;
-        private System.Windows.Forms.TextBox AvgCostTxtBox;
-        private System.Windows.Forms.ListBox categoryList;
+        protected System.Windows.Forms.GroupBox filterGroup;
+        protected System.Windows.Forms.DateTimePicker toDatePicker;
+        protected System.Windows.Forms.DateTimePicker fromDatePicker;
+        protected System.Windows.Forms.Label fromDateLabel;
+        protected System.Windows.Forms.TextBox itemTxtBox;
+        protected System.Windows.Forms.Label itemLabel;
+        protected System.Windows.Forms.TextBox toAmountTxtBox;
+        protected System.Windows.Forms.TextBox fromAmountTxtBox;
+        protected System.Windows.Forms.Label fromAmountLabel;
+        protected System.Windows.Forms.Label categoryLabel;
+        protected System.Windows.Forms.CheckBox toAmountChkBox;
+        protected System.Windows.Forms.CheckBox toDateChkBox;
+        protected System.Windows.Forms.DataGridView dataGridView1;
+        protected System.Windows.Forms.Button closeBtn;
+        protected System.Windows.Forms.Button searchBtn;
+        protected System.Windows.Forms.Label totalCostLabel;
+        protected System.Windows.Forms.TextBox totalCostTxtBox;
+        protected System.Windows.Forms.Label AvgCostLabel;
+        protected System.Windows.Forms.TextBox AvgCostTxtBox;
+        protected System.Windows.Forms.ListBox categoryList;
     }
 }
