@@ -117,12 +117,15 @@ namespace ExpenseManager
             amountNode.AppendChild(xmlDoc.CreateTextNode(cost.Text));
             XmlElement commentNode = xmlDoc.CreateElement("comment");
             commentNode.AppendChild(xmlDoc.CreateTextNode(comment.Text));
+            XmlElement idNode = xmlDoc.CreateElement("id");
+            idNode.AppendChild(xmlDoc.CreateTextNode(Guid.NewGuid().ToString()));
 
             XmlNode expenseNode = xmlDoc.CreateElement("expense");
             expenseNode.AppendChild(itemNode);
             expenseNode.AppendChild(categoryNode);
             expenseNode.AppendChild(amountNode);
             expenseNode.AppendChild(commentNode);
+            expenseNode.AppendChild(idNode);
             return expenseNode;
         }
     }

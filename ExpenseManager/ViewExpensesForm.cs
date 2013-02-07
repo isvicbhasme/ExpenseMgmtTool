@@ -186,8 +186,10 @@ namespace ExpenseManager
                         totalCost += double.Parse(cost);
                         navigateExpenseToDisplay.MoveToNext();
                         string comment = navigateExpenseToDisplay.Value;
+                        navigateExpenseToDisplay.MoveToNext();
+                        string id = navigateExpenseToDisplay.Value;
                         string date = searchDate.ToShortDateString().ToString();
-                        dataGridView1.Rows.Add(new String[] {date, item, cost, category, comment});
+                        dataGridView1.Rows.Add(new String[] {id, date, item, cost, category, comment});
                     }
                 }
             }
@@ -247,11 +249,13 @@ namespace ExpenseManager
         {
             dataGridView1.Columns.Clear();
             dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Add("Id", "Id");
             dataGridView1.Columns.Add("Date","Date");
             dataGridView1.Columns.Add("Item", "Item");
             dataGridView1.Columns.Add("Cost", "Cost");
             dataGridView1.Columns.Add("Category", "Category");
             dataGridView1.Columns.Add("Comment", "Comment");
+            dataGridView1.Columns["Id"].Visible = false;
         }
     }
 }
