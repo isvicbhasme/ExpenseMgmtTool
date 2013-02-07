@@ -260,7 +260,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.filterGroup);
             this.Name = "ViewExpensesForm";
-            this.Text = "ViewExpensesForm";
+            this.Text = "View Expenses Form";
             this.filterGroup.ResumeLayout(false);
             this.filterGroup.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
