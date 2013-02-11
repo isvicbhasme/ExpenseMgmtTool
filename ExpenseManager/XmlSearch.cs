@@ -30,7 +30,7 @@ namespace XmlOperations
         //  Returns the first matching node in the immediate list of children
         //  OR returns null if known exceptions are thrown & handled.
         //
-        public XmlNode findFirstNode(ref XmlElement nodeElement, string nodeName, String[] attributeNames, String[] attributeValues)
+        public XmlNode findFirstNode(XmlElement nodeElement, string nodeName, String[] attributeNames, String[] attributeValues)
         {
             try
             {
@@ -77,6 +77,48 @@ namespace XmlOperations
                 MessageBox.Show(e.ToString(), "Exception Occurred\n"+e.StackTrace, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             return null;
+        }
+
+        public XmlNode findFirstNode(XmlNode root, string nodeName, string textContent)
+        {
+            if (root.HasChildNodes)
+            {
+                IEnumerator rootEnumerator = root.ChildNodes.GetEnumerator();
+                while(rootEnumerator.MoveNext())
+                {
+                    XmlNode innerNode = findFirstNode(((XmlNode)rootEnumerator.Current), nodeName, textContent);
+                    if (innerNode != null)
+                    {
+                        return innerNode;
+                    }
+                }
+            }
+            if (root.InnerText.CompareTo("") != 0)
+            {
+                if (root.ParentNode.Name.CompareTo(nodeName)==0 && root.InnerText.CompareTo(textContent)==0)
+                {
+                    return root.ParentNode.ParentNode;
+                }
+                return null;
+            }
+            return null;
+        }
+
+        public void replaceElement(XmlNode parent, Hashtable nameValuePair)
+        {
+            foreach (String name in nameValuePair.Keys)
+            {
+                XmlNode node = parent;
+                IEnumerator childNode = node.GetEnumerator();
+                while(childNode.MoveNext())
+                {
+                    if (name.CompareTo(((XmlNode)childNode.Current).Name) == 0)
+                    {
+                        ((XmlNode)childNode.Current).InnerText = nameValuePair[name].ToString();
+                        break;
+                    }
+                }
+            }
         }
 
         public bool isNodeMatching(XmlNode node, Hashtable nameValuePair)

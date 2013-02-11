@@ -15,7 +15,7 @@ namespace ExpenseManager
 {
     public partial class ViewExpensesForm : Form
     {
-        private DateTime fromDate;
+        protected DateTime fromDate;
         private DateTime toDate;
         private String item = String.Empty;
         private ArrayList categories;
@@ -26,7 +26,6 @@ namespace ExpenseManager
         public ViewExpensesForm()
         {
             InitializeComponent();
-            //categoryCombo.Items.AddRange(ExpenseManager.Controls.getCategoryOptions());
             categoryList.Items.AddRange(ExpenseManager.Controls.getCategoryOptions());
             this.fromAmountTxtBox.TextChanged += new System.EventHandler(ExpenseManager.Controls.validateAmountLively);
             this.toAmountTxtBox.TextChanged += new System.EventHandler(ExpenseManager.Controls.validateAmountLively);
@@ -60,7 +59,7 @@ namespace ExpenseManager
             }
         }
 
-        private bool isFormValid()
+        protected virtual bool isFormValid()
         {
             ArrayList errors = new ArrayList();
             errors.AddRange(validateDate().ToArray());
@@ -80,7 +79,7 @@ namespace ExpenseManager
                 return true;
         }
 
-        private ArrayList validateDate()
+        protected virtual ArrayList validateDate()
         {
             ArrayList errors = new ArrayList();
             DateTime today = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day);
@@ -103,16 +102,6 @@ namespace ExpenseManager
             }
             return errors;
         }
-
-        /*private ArrayList validateCategory()
-        {
-            ArrayList errors = new ArrayList();
-            if (categoryCombo.SelectedItem == null && categoryCombo.Text!="")
-            {
-                errors.Add("Category should be selected from the list");
-            }
-            return errors;
-        }*/
 
         private ArrayList validateAmount()
         {
@@ -139,7 +128,7 @@ namespace ExpenseManager
             return errors;
         }
 
-        private void searchBtn_Click(object sender, EventArgs e)
+        protected virtual void searchBtn_Click(object sender, EventArgs e)
         {
             XmlOperations.XmlSearch xmlNavigator = new XmlOperations.XmlSearch();
             if (!isFormValid())
@@ -164,7 +153,7 @@ namespace ExpenseManager
             for (DateTime searchDate = fromDate; searchDate.CompareTo(toDate) <= 0; searchDate=searchDate.AddDays(1))
             {
                 userInputPair["date"] = searchDate;
-                XmlNode calenderNode = xmlNavigator.findFirstNode(ref docParent, "calender", calenderAttributeNames, new String[] { searchDate.Day.ToString(), searchDate.Month.ToString(), searchDate.Year.ToString() });
+                XmlNode calenderNode = xmlNavigator.findFirstNode(docParent, "calender", calenderAttributeNames, new String[] { searchDate.Day.ToString(), searchDate.Month.ToString(), searchDate.Year.ToString() });
                 if (calenderNode == null)
                 {
                     //MessageBox.Show("Could not find any record with the given filter.", "Expense Mgmt", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -203,7 +192,7 @@ namespace ExpenseManager
             Close();
         }
 
-        private void storeInputValues()
+        protected virtual void storeInputValues()
         {
             userInputPair = new Hashtable();
             fromDate = fromDatePicker.Value;
@@ -245,7 +234,7 @@ namespace ExpenseManager
             }
         }
 
-        protected void initGridView()
+        protected virtual void initGridView()
         {
             dataGridView1.Columns.Clear();
             dataGridView1.Rows.Clear();

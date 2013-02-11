@@ -83,7 +83,7 @@ namespace ExpenseManager
                 }
                 XmlElement docParent = xmlDoc.DocumentElement;
                 XmlNode newExpenseElement = getDataAsXML(xmlDoc);
-                XmlNode appendPosition = xmlNavigator.findFirstNode(ref docParent,"calender",new String[] {"day","month","year"},new String[] {expenseDate.Value.Day.ToString(), expenseDate.Value.Month.ToString(), expenseDate.Value.Year.ToString()});
+                XmlNode appendPosition = xmlNavigator.findFirstNode(docParent,"calender",new String[] {"day","month","year"},new String[] {expenseDate.Value.Day.ToString(), expenseDate.Value.Month.ToString(), expenseDate.Value.Year.ToString()});
                 if(appendPosition == null)
                 {
                     XmlElement newCalender = xmlDoc.CreateElement("calender");

@@ -116,6 +116,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UpdateExpensesForm.resx">
+      <DependentUpon>UpdateExpensesForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ViewExpensesForm.resx">
       <DependentUpon>ViewExpensesForm.cs</DependentUpon>
     </EmbeddedResource>
