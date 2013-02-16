@@ -83,6 +83,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls.cs" />
+    <Compile Include="DeleteExpensesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeleteExpensesForm.Designer.cs">
+      <DependentUpon>DeleteExpensesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewExpenseForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +110,9 @@
       <DependentUpon>ViewExpensesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="XmlSearch.cs" />
+    <EmbeddedResource Include="DeleteExpensesForm.resx">
+      <DependentUpon>DeleteExpensesForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NewExpenseForm.resx">
       <DependentUpon>NewExpenseForm.cs</DependentUpon>
     </EmbeddedResource>

@@ -19,8 +19,8 @@ namespace ExpenseManager
             contextMenu = new ContextMenu();
             contextMenu.MenuItems.Add("New Expense", onCreateExpense);
             contextMenu.MenuItems.Add("View Expenses", onViewExpense);
-            contextMenu.MenuItems.Add("Delete Expense", onDeleteExpense);
             contextMenu.MenuItems.Add("Update Expense", onUpdateExpense);
+            contextMenu.MenuItems.Add("Delete Expense", onDeleteExpense);
             contextMenu.MenuItems.Add("-");
             contextMenu.MenuItems.Add("Exit", onExit);
 
@@ -59,7 +59,15 @@ namespace ExpenseManager
 
         private void onDeleteExpense(Object sender, EventArgs e)
         {
-
+            if (isFormOpen("View Expenses Form"))
+            {
+                MessageBox.Show("The window 'View Expenses Form' is open. Please close the window and try again.", "Message");
+            }
+            else if (!isFormOpen("Delete Expenses Form"))
+            {
+                DeleteExpensesForm deleteExpensesForm = new DeleteExpensesForm();
+                deleteExpensesForm.Show();
+            }
         }
 
         private void onUpdateExpense(Object sender, EventArgs e)
